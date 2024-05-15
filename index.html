@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Social Links</title>
+    <link rel="stylesheet" href="CSS/reseau.css">
+    <link rel="icon" href="img/logo.png">
+</head>
+    
+
+<body>
+    <h1> <img class="logo-ush" src="img/ush.png" alt="Instagram Logo">My Social Links</h1>
+    <div class="center">
+        <a class="button" href="https://www.instagram.com/ushthepup/">
+            <img class="logo" src="img/logo-insta.png" alt="Instagram Logo">
+            Instagram
+        </a>
+        <a class="button" href="#" onclick="toggleDropdown()">
+            <img class="logo" src="img/logo-x.png" alt="Instagram Logo">
+            Twitter/X
+        </a>
+        <div id="dropdown">
+            <div class="center"><p>Attention: Ce contenu peut être NSFW <img class="moins-18" src="img/-18.png" alt="Instagram Logo"> (Not Safe for Work).</p></div>
+            <button class=" valider" onclick="redirectToLink(true)">J'ai +18 ans</button>
+            <button class="refuser" onclick="redirectToLink(false)">J'ai-18 ans</button>
+        </div>
+        <script>
+            function toggleDropdown() {
+                var dropdown = document.getElementById("dropdown");
+                dropdown.classList.toggle("visible");
+            }
+
+            function redirectToLink(isOver18) {
+                if (isOver18) {
+                    window.location.href = "https://twitter.com/ushthepup";
+                } else {
+                    var dropdown = document.getElementById("dropdown");
+                    dropdown.classList.remove("visible");
+                }
+            }
+        </script>
+        <a class="button" href="https:/Ushthepup.fr">Site Web</a>
+
+    </div>
+</body>
+
+</html>
