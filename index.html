@@ -1,47 +1,141 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 
 <head>
-    <title>My Social Links</title>
-    <link rel="stylesheet" href="CSS/reseau.css">
-    <link rel="icon" href="img/logo.png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Boutique Kink & BDSM - En Construction</title>
+  <link rel="stylesheet" href="css/index.css">
+  <link rel="icon" href="img/logo.png">
 </head>
-    
 
 <body>
-    <h1> <img class="logo-ush" src="img/ush.png" alt="Instagram Logo">My Social Links</h1>
-    <div class="center">
-        <a class="button" href="https://www.instagram.com/ushthepup/">
-            <img class="logo" src="img/logo-insta.png" alt="Instagram Logo">
-            Instagram
-        </a>
-        <a class="button" href="#" onclick="toggleDropdown()">
-            <img class="logo" src="img/logo-x.png" alt="Instagram Logo">
-            Twitter/X
-        </a>
-        <div id="dropdown">
-            <div class="center"><p>Attention: Ce contenu peut être NSFW <img class="moins-18" src="img/-18.png" alt="Instagram Logo"> (Not Safe for Work).</p></div>
-            <button class=" valider" onclick="redirectToLink(true)">J'ai +18 ans</button>
-            <button class="refuser" onclick="redirectToLink(false)">J'ai-18 ans</button>
-        </div>
-        <script>
-            function toggleDropdown() {
-                var dropdown = document.getElementById("dropdown");
-                dropdown.classList.toggle("visible");
-            }
+  <header>
+    <div class="logo"><img src="img/logo.png" style="width:50px;"></div>
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Newsletter</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="hero">
 
-            function redirectToLink(isOver18) {
-                if (isOver18) {
-                    window.location.href = "https://twitter.com/ushthepup";
-                } else {
-                    var dropdown = document.getElementById("dropdown");
-                    dropdown.classList.remove("visible");
-                }
-            }
-        </script>
-        <a class="button" href="https:/Ushthepup.fr">Site Web</a>
+    <div class="hero-text">
+      <h1>Tout un univers kink et BDSM arrive bientôt!</h1>
+      <p>Nous travaillons en se moment pour vous faire découvrez une collection exclusive de harnais, menottes, colliers, et laisses, commandes sur mesure, tous faits main.</p>
+      <div class="construction-animation">
+        <!-- Ajoutez ici l'animation de la pelleteuse -->
+        <iframe src="anim/pelleteuse.html" frameborder="0"></iframe>
+      </div>
+      <form class="newsletter-form">
+        <p style="margin-bottom:5px;">Inscrivez vous a la NewsLetter pour rester au courant !</p>
+        <input type="email" placeholder="Entrez votre email" required>
+        <button type="submit">S'inscrire</button>
+      </form>
+    </div>
+  </section>
+  <section class="products-preview">
+    <h2>Aperçu de nos créations</h2>
+
+    <div class="product-gallery">
+      <div class="product-item">
+        <img src="/img/produits/produit-1.jpeg" alt="Produit 1">
+        <p>Harnais en cuir</p>
+      </div>
+      <div class="product-item">
+        <img src="/img/produits/produit-2.jpeg" alt="Produit 2">
+        <p>Harnais néoprenne</p>
+      </div>
+      <div class="product-item">
+        <img src="/img/produits/produit-3.jpeg" alt="Produit 3">
+        <p>Harnais tissu</p>
+      </div>
+      <div class="product-item">
+        <img src="/img/produits/produit-4.jpeg" alt="Produit 4">
+        <p>Collier neoprenne</p>
+      </div>
+      <div class="product-item">
+        <img src="/img/produits/produit-5.jpeg" alt="Produit 4">
+        <p>Menotte cuir</p>
+      </div>
+      <div class="product-item">
+        <img src="/img/produits/produit-6.jpeg" alt="Produit 4">
+        <p>Laisses robustes</p>
+      </div>
 
     </div>
+
+  </section>
+  <section class="countdown">
+    <h2>Lancement dans...</h2>
+    <div id="countdown-timer">30 Jours</div>
+  </section>
+  <section class="social-media">
+    <h2>Suivez-nous</h2>
+    <div class="social-icons">
+      <a href="https://www.instagram.com/ushthepup/"><img src="img/logo-insta.png" alt="Instagram"
+          class="logo">Instagram</a>
+      <a href="https://twitter.com/ushthepup"><img src="img/logo-x.png" alt="Twitter" class="logo">Twitter/X</a>
+    </div>
+  </section>
+  <footer>
+    <div class="contact-info">
+      <p>Email: <a href="mailto:ushthepup@gmail.com">ushthepup@gmail.com</a></p>
+    </div>
+    <nav>
+      <ul>
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">À propos</a></li>
+        <li><a href="#">Newsletter</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+    </nav>
+    <p>&copy; 2024 UshThePup. Tous droits réservés.</p>
+  </footer>
+  <script>
+    // Ajoutez cette fonction pour le déplacement des produits
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const gallery = document.querySelector('.product-gallery');
+      const items = document.querySelectorAll('.product-item');
+      const itemWidth = items[0].offsetWidth + parseInt(getComputedStyle(items[0]).marginRight);
+
+      // Clone items for infinite scrolling
+      items.forEach(item => {
+        const clone = item.cloneNode(true);
+        gallery.appendChild(clone);
+      });
+
+      let currentIndex = 0;
+
+      function updateGallery() {
+        const offset = -currentIndex * itemWidth;
+        gallery.style.transform = `translateX(${offset}px)`;
+      }
+
+      // Auto-scroll functionality
+      let autoScrollInterval = setInterval(() => {
+        currentIndex = (currentIndex >= items.length - 1) ? 0 : currentIndex + 1;
+        updateGallery();
+      }, 2000);
+
+      // Pause auto-scroll on hover
+      gallery.addEventListener('mouseover', () => {
+        clearInterval(autoScrollInterval);
+      });
+
+      gallery.addEventListener('mouseout', () => {
+        autoScrollInterval = setInterval(() => {
+          currentIndex = (currentIndex >= items.length - 1) ? 0 : currentIndex + 1;
+          updateGallery();
+        }, 2000);
+      });
+    });
+
+  </script>
 </body>
 
 </html>

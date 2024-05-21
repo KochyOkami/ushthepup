@@ -1,0 +1,217 @@
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.9.1/gsap.min.js"></script>
+
+<svg id="pelleteuse" width="305" height="200" viewBox="0 15 305 200" xmlns="http://www.w3.org/2000/svg">
+    <g transform="translate(0, 35) scale(0.6)">
+        <!--Sky-->
+        <rect x="0" y="-30" width="500" height="250" fill="#67a8b8" rx="10" />
+       
+        <!-- Terrain -->
+        <rect x="0" y="202" width="500" height="100" fill="#8B4513" rx="5" />
+
+        <!-- Trou -->
+        <path
+            d="M 0,203 L 200,203 L 220,195 L 230,185 L240,183 L 250,190 L 260,203 L 275,203 L 280,240 L 330,280 L 380,280 L 450, 250 L 480,203 L 496,203 Z"
+            fill="#654321" stroke="#000000" stroke-width="3" />
+
+        <rect x="50" y="100" width="105" height="50" fill="yellow" stroke="#000000" stroke-width="8" rx="5" />
+        <rect x="60" y="110" width="60" height="8" fill="black" rx="5" />
+
+        <!--Cheminé-->
+        <rect x="110" y="80" width="10" height="20" fill="black" />
+        <polygon points="115,75 105,75 110,81 120,81 " fill="black" />
+
+        <!--Cabine-->
+        <path d="M 213,70 Q 203,70 198,60 L 168,53 Q 158,50 153,60 L 153,150 L 203,150 Q 213,150 213,140 Z"
+            fill="yellow" stroke="black" stroke-width="8" />
+        <!--fenettre-->
+        <polygon points="209,73 163,57 163,100 209,100" fill="#ADD8E6" stroke="#000000" stroke-width="5" />
+
+
+        <!--chenille-->
+        <rect x="110" y="150" width="10" height="20" fill="black" />
+        <rect x="160" y="150" width="10" height="20" fill="black" />
+
+        <path d="M 200,174 A 10,10 0 0,1 200,195" fill="none" stroke="#000000" stroke-width="7.8" />
+        <path d="M 61,174 A 10,10 0 0,0 61,195" fill="none" stroke="#000000" stroke-width="7.8" />
+        <rect x="60" y="170" width="140" height="8" fill="black" />
+        <rect x="60" y="191" width="140" height="8" fill="black" />
+        <rect x="80" y="180" width="100" height="8" fill="black" rx="5" />
+        <circle cx="190" cy="185" r="5" fill="#000" />
+        <circle cx="70" cy="185" r="5" fill="#000" />
+
+        <!--bras-->
+
+        <rect id="bras-back1" x="177" y="2" width="168" height="35" fill="yellow" transform="rotate(-15 250 10)" />
+
+        <rect id="bras1-1" x="177" y="0" width="170" height="8" fill="black" transform="rotate(-15 250 10)" />
+        <rect id="bras1-2" x="205" y="36" width="130" height="8" fill="black" transform="rotate(-15 250 10)" />
+        <rect id="bras1-3" x="178" y="9" width="155" height="8" fill="black" transform="rotate(-8 250 10)" />
+
+
+        <polygon id="bras-back2" points="335,15 360,-5 400,145 380,145" fill="yellow" />
+        <rect id="bras2-1" x="355" y="15" width="8" height="155" fill="black" transform="rotate(-15 250 10)" />
+        <rect id="bras2-2" x="324" y="30" width="8" height="160" fill="black" transform="rotate(-20 250 10)" />
+        <rect id="bras2-3" x="290" y="200" width="20" height="8" fill="black" transform="rotate(-19 190 -95)" />
+
+        <polygon points="180,25 215,45 209,65 168,51" fill="yellow" />
+
+        <circle id="circle" cx="343" cy="-6" r="15" fill="yellow" stroke="#000" stroke-width="8" />
+
+        <rect x="150" y="20" width="8" height="35" fill="black" transform="rotate(25 165 80)" />
+        <rect x="195" y="30" width="8" height="25" fill="black" transform="rotate(25 165 80)" />
+
+        <rect id="pelle1" x="393" y="135" width="8" height="50" fill="black" />
+        <rect id="pelle3" x="331" y="185" width="70" height="8" fill="black" rx="5" />
+        <rect id="pelle2" x="410" y="140" width="8" height="65" fill="black" transform="rotate(45 400 120)" />
+        <polygon points="165,50 160,55 210,73 210,65 " fill="black" />
+
+
+
+    </g>
+</svg>
+
+<script>
+
+    // Animation du bras de la pelleteuse
+    gsap.to("#bras1-1", {
+        rotation: -5,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras1-2", {
+        rotation: -2,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras1-3", {
+        rotation: 2,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras-back1", {
+        rotation: -5,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+
+
+
+    // Animation de la pelle
+    gsap.to("#circle", {
+        x: 0,
+        y: 29,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+
+    // Animation de la pelle
+    gsap.to("#bras2-1", {
+        x: 0,
+        y: 10,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras2-1", {
+        rotation: 5,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras2-2", {
+        x: 0,
+        y: 0,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras2-2", {
+        rotation: 0,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras2-3", {
+        x: 40,
+        y: -18,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras2-3", {
+        rotation: 0,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras-back2", {
+        x: 0,
+        y: 30,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#bras-back2", {
+        rotation: 20,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+
+    gsap.to("#pelle1", {
+        rotation: -20,
+        transformOrigin: "top left",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#pelle1", {
+        x: -52,
+        y: 40,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+
+    gsap.to("#pelle2", {
+        rotation: 30,
+        transformOrigin: "top rigtht",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#pelle2", {
+        x: -65,
+        y: 40,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#pelle3", {
+        rotation: -20,
+        transformOrigin: "bottom right",
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+    gsap.to("#pelle3", {
+        x: -33.5,
+        y: 30,
+        repeat: -1,
+        yoyo: true,
+        duration: 2
+    });
+</script>

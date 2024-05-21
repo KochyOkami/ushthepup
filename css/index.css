@@ -1,0 +1,221 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #121212;
+    color: #ffffff;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: #4B0082;
+    /* Violet foncé */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+}
+
+header .logo {
+    font-size: 1.5em;
+}
+
+header nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+header nav ul li {
+    margin-left: 20px;
+}
+
+header nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.hero {
+    background: url('background.jpg') no-repeat center center/cover;
+    text-align: center;
+    padding: 100px 20px;
+    position: relative;
+}
+
+.construction-animation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    /* Vous pouvez ajuster la hauteur selon vos besoins */
+    margin: 20px 0;
+    /* Optionnel : ajoute un espacement autour de l'animation */
+}
+
+.construction-animation iframe {
+    width: 310px;
+    /* Largeur de l'iframe */
+    height: 210px;
+    /* Hauteur de l'iframe */
+    border: none;
+    /* Retire la bordure de l'iframe */
+}
+
+.hero .hero-text {
+    background-color: rgba(0, 0, 0, 0.7);
+    display: inline-block;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.hero .hero-text h1 {
+    font-size: 2.5em;
+    margin-bottom: 20px;
+}
+
+.hero .hero-text p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+}
+
+.hero .newsletter-form input[type="email"] {
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.hero .newsletter-form button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    background-color: #8A2BE2;
+    /* Violet clair */
+    color: #ffffff;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.products-preview {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #1E1E1E;
+}
+
+.products-preview h2 {
+    font-size: 2em;
+    margin-bottom: 30px;
+    color: #ffffff;
+}
+
+.products-preview {
+    position: relative;
+    overflow: hidden;
+}
+
+.product-gallery {
+    display: flex;
+    transition: transform 0.5s ease;
+    /* Ajoute une transition pour le déplacement des produits */
+}
+
+.product-item {
+    flex: 0 0 auto;
+    margin-right: 20px;
+    transition: transform 0.5s ease;
+}
+
+.product-item img {
+    width: 300px;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    filter: blur(20px);
+}
+
+.product-item p {
+    font-size: 1.1em;
+    color: #ffffff;
+}
+
+.countdown {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #4B0082;
+    /* Violet foncé */
+}
+
+.countdown h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+#countdown-timer {
+    font-size: 3em;
+    font-weight: bold;
+    filter: blur(8px);
+}
+
+.social-media {
+    padding: 50px 20px;
+    text-align: center;
+    background-color: #1E1E1E;
+}
+
+.social-media h2 {
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+.social-icons a {
+    margin: 0 10px;
+    display: inline-block;
+}
+
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+    vertical-align: middle;
+}
+
+a {
+    text-decoration: none;
+    color: #fff;
+}
+
+footer {
+    background-color: #4B0082;
+    /* Violet foncé */
+    padding: 20px;
+    text-align: center;
+    border-radius: 5px;
+}
+
+footer .contact-info p,
+footer nav ul,
+footer p {
+    margin: 10px 0;
+}
+
+footer nav ul {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+
+footer nav ul li {
+    margin: 0 10px;
+}
+
+footer nav ul li a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+footer p {
+    font-size: 0.9em;
+}
