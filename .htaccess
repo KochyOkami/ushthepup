@@ -1,0 +1,16 @@
+# Activer la réécriture des URL
+RewriteEngine On
+
+# Réécriture pour supprimer l'extension .html
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}\.html -f
+RewriteRule ^(.*)$ $1.html [L]
+
+# Empêcher l'accès direct aux répertoires
+Options -Indexes
+
+# Empêcher l'affichage des fichiers .htaccess
+<Files .htaccess>
+    Order allow,deny
+    Deny from all
+</Files>
