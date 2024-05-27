@@ -96,7 +96,7 @@ function saveGeoInfo($ip, $geoInfo)
 
     $latitude = isset($geoInfo['loc']) ? explode(',', $geoInfo['loc'])[0] : NULL;
     $longitude = isset($geoInfo['loc']) ? explode(',', $geoInfo['loc'])[1] : NULL;
-    var_dump($geoInfo);
+
     // Utilisez des variables temporaires pour passer les valeurs à bind_param()
     $ip_address = $ip;
     $country = $geoInfo['country'] ?? NULL;
@@ -140,7 +140,5 @@ function updateMissingGeoInfo()
                 saveGeoInfo($ip_address, $geoInfo);
             }
         }
-    } else {
-        echo "Aucune nouvelle adresse IP trouvée.";
     }
 }

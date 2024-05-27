@@ -93,19 +93,23 @@ $db->close();
         }
 
         .country-flag {
-            width: 30px;
+            width: 100px;
             height: auto;
             vertical-align: middle;
-            margin-right: 10px;
+            margin: 0 10px;
         }
+
         .country-item {
             margin-bottom: 10px;
             padding: 10px;
-            background-color: #fff;
+            background-color: #000;
             border-radius: 5px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             display: flex;
             align-items: center;
+            width: fit-content;
+            margin: 0 auto;
+            flex-direction: column;
         }
     </style>
 </head>
