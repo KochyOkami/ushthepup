@@ -11,6 +11,7 @@ if (!isset($_SESSION['start_time'])) {
   // Si la session a déjà commencé, vérifie si la durée de visite doit être mise à jour
   updateDuration('index');
 }
+
 ?>
 
 <!DOCTYPE html>
@@ -29,10 +30,10 @@ if (!isset($_SESSION['start_time'])) {
     <div class="logo"><img src="img/logo.png" style="width:50px;"></div>
     <nav>
       <ul>
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#">À propos</a></li>
-        <li><a href="#">Newsletter</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="click.php?redirect=accueil&from=index">Accueil</a></li>
+        <li><a href="click.php?redirect=faq&from=index">À propos</a></li>
+        <li><a href="click.php?redirect=newsletter&from=index">Newsletter</a></li>
+        <li><a href="click.php?redirect=contact&from=index">Contact</a></li>
       </ul>
     </nav>
   </header>
@@ -104,8 +105,8 @@ if (!isset($_SESSION['start_time'])) {
   <section class="social-media">
     <h2>Suivez-nous</h2>
     <div class="social-icons">
-      <a href="https://www.instagram.com/ushthepup/"><img src="img/logo-insta.png" alt="Instagram" class="logo">Instagram</a>
-      <a href="https://twitter.com/ushthepup"><img src="img/logo-x.png" alt="Twitter" class="logo">Twitter/X</a>
+      <a href="click.php?redirect=insta-pro&from=index"><img src="img/logo-insta.png" alt="Instagram" class="logo">Instagram</a>
+      <a href="click.php?redirect=x-pro&from=index"><img src="img/logo-x.png" alt="Twitter" class="logo">Twitter/X</a>
     </div>
   </section>
   <footer>
@@ -114,10 +115,10 @@ if (!isset($_SESSION['start_time'])) {
     </div>
     <nav>
       <ul>
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#">À propos</a></li>
-        <li><a href="#">Newsletter</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="click.php?redirect=accueil&from=index">Accueil</a></li>
+        <li><a href="click.php?redirect=faq&from=index">À propos</a></li>
+        <li><a href="click.php?redirect=newsletter&from=index">Newsletter</a></li>
+        <li><a href="click.php?redirect=contact&from=index">Contact</a></li>
       </ul>
     </nav>
     <p>&copy; 2024 UshThePup. Tous droits réservés.</p>

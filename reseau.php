@@ -28,7 +28,7 @@ if (!isset($_SESSION['start_time'])) {
 <body>
     <h1> <img class="logo-ush" src="img/ush.png" alt="Instagram Logo">My Social Links</h1>
     <div class="center">
-        <a class="button" href="click.php?platform=insta&from=reseau">
+        <a class="button" href="click.php?redirect=insta&from=reseau">
             <img class="logo" src="img/logo-insta.png" alt="Instagram Logo">
             <span>Instagram</span>
         </a>
@@ -45,11 +45,11 @@ if (!isset($_SESSION['start_time'])) {
             <button class="refuser" onclick="redirectToLink(false)">J'ai-18 ans</button>
         </div>
 
-        <a class="button" href="click.php?platform=ngl&from=reseau">
+        <a class="button" href="click.php?redirect=ngl&from=reseau">
             <img class="logo" src="img/logo-ngl.png" alt="NGL Logo" style="border-radius: 15px;">
             <span>NGL</span>
         </a>
-        <a class="button" href="click.php?platform=site&from=reseau">
+        <a class="button" href="click.php?redirect=site&from=reseau">
             Site Web
         </a>
 
@@ -63,7 +63,7 @@ if (!isset($_SESSION['start_time'])) {
 
         function redirectToLink(isOver18) {
             if (isOver18) {
-                window.location.href = "click.php?platform=x&from=reseau";
+                window.location.href = "click.php?redirect=x&from=reseau";
             } else {
                 var dropdown = document.getElementById("dropdown");
                 dropdown.classList.remove("visible");

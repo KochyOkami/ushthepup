@@ -14,6 +14,21 @@ if ($result->num_rows > 0) {
         $visitData[] = $row;
     }
 }
+
+// Requête SQL pour obtenir la moyenne du temps passé par jour en excluant les durées de 0 secondes
+$sql = "SELECT DATE(FROM_UNIXTIME(time_start)) AS date, AVG(duration) AS avg_duration
+        FROM visiteurs
+        WHERE duration > 0
+        GROUP BY DATE(FROM_UNIXTIME(time_start))";
+
+$result = $db->query($sql);
+
+$avgDurations = [];
+while ($row = $result->fetch_assoc()) {
+    $avgDurations[] = $row;
+}
+
+$db->close();
 ?>
 
 <!DOCTYPE html>
@@ -27,17 +42,27 @@ if ($result->num_rows > 0) {
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <style>
         .graph {
-            width: 50%;
-            margin: 0 auto;
+            width: 40%;
+        }
+
+        .center {
+            display: flex;
+            justify-content: space-around;
         }
     </style>
 </head>
 
 <body>
-    <h1>Statistiques de Visite</h1>
-    <div class="graph">
-        <canvas id="visitsChart" width="800" height="400" style="display: block; box-sizing: border-box; height: 800; width: 400;"></canvas>
+    <h1 style="text-align:center;">Statistiques de Visite</h1>
+    <div class="center">
+        <div class="graph">
+            <canvas id="visitsChart" style="display: block; box-sizing: border-box; height: 400; width: 400;"></canvas>
+        </div>
+        <div class="graph">
+            <canvas id="avgDurationChart" style="display: block; box-sizing: border-box; height: 400; width: 400;"></canvas>
+        </div>
     </div>
+
     <?php
     include("includes/db.php");
 
@@ -49,7 +74,13 @@ if ($result->num_rows > 0) {
 
     if ($result->num_rows > 0) {
         while ($row = $result->fetch_assoc()) {
-            echo "Action: " . $row["action"] . ": " . $row["sessions_count"] . "<br>";
+            while ($row = $result->fetch_assoc()) {
+                // Remplacer "page_visit_" par une chaîne vide si elle existe dans l'action
+                $cleaned_action = str_replace("page_visit_", "", $row["action"]);
+
+                // Afficher l'action nettoyée et le nombre de sessions
+                echo "Action: " . $cleaned_action . ": " . $row["sessions_count"] . "<br>";
+            }
         }
     } else {
         echo "Aucun résultat trouvé";
@@ -90,6 +121,46 @@ if ($result->num_rows > 0) {
                             beginAtZero: true
                         }
                     }]
+                }
+            }
+        });
+
+        // Récupérer les données PHP en JSON
+        const avgDurations = <?php echo json_encode($avgDurations); ?>;
+
+        // Préparer les données pour le graphique
+        const labels2 = avgDurations.map(data => data.date);
+        const durations = avgDurations.map(data => data.avg_duration / 1000);
+
+        // Configuration du graphique
+        const ctx2 = document.getElementById('avgDurationChart').getContext('2d');
+        const avgDurationChart = new Chart(ctx2, {
+            type: 'line', // Utiliser un graphique en ligne pour les moyennes
+            data: {
+                labels: labels2,
+                datasets: [{
+                    label: 'Durée Moyenne (secondes)',
+                    data: durations,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Durée Moyenne (secondes)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Date'
+                        }
+                    }
                 }
             }
         });

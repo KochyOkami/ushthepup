@@ -3,8 +3,8 @@ session_start();
 
 include("includes/functions.php");
 // Vérifier si le paramètre 'platform' est présent dans l'URL
-if (isset($_GET['platform'])) {
-    $platform = $_GET['platform'];
+if (isset($_GET['redirect'])) {
+    $platform = $_GET['redirect'];
 
     if ($platform == "insta") {
         recordPageVisit('insta');
@@ -22,7 +22,13 @@ if (isset($_GET['platform'])) {
         addEmailNewsLetter($_POST['email']);
         $_SESSION['registered'] = true; // Set a session variable to indicate successful registration
         header("Location: index.php");
-    }else {
+    } else if ($platform == "insta-pro") {
+        recordPageVisit('insta-pro');
+        header("Location: https://www.instagram.com/ushthepup/");
+    } else if ($platform == "x-pro") {
+        recordPageVisit('x-pro');
+        header("Location: https://x.com/ushthepup");
+    } else {
         header("Location: index.php");
     }
 } else {
