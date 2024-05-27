@@ -85,7 +85,13 @@ header nav ul li a {
     border-radius: 5px;
     margin-right: 10px;
 }
-
+.confirmation-message {
+    margin: 9px auto;
+    background-color: green;
+    width: fit-content;
+    padding: 20px 15px;
+    border-radius: 10px;
+  }
 .hero .newsletter-form button {
     padding: 10px 20px;
     border: none;

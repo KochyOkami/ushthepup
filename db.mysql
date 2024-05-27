@@ -1,0 +1,23 @@
+CREATE DATABASE user_time_data;
+
+USE user_time_data;
+
+CREATE TABLE visiteurs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ip_address VARCHAR(45) NOT NULL,
+    user_agent TEXT NOT NULL,
+    action VARCHAR(255) NOT NULL,
+    time_start INT DEFAULT 0,
+    session_id VARCHAR(255) NOT NULL,
+    duration INT DEFAULT 0
+);
+
+CREATE TABLE newsletter (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(255) NOT NULL
+);
+
+CREATE USER 'suivi_user'@'localhost' IDENTIFIED BY 'AdeZ878c*ZZ4d#ec@rz8q';
+GRANT ALL PRIVILEGES ON user_time_data.* TO 'suivi_user'@'localhost';
+FLUSH PRIVILEGES;
+SHOW GRANTS FOR 'suivi_user'@'localhost';

@@ -1,10 +1,10 @@
 # Activer la réécriture des URL
 RewriteEngine On
 
-# Réécriture pour supprimer l'extension .html
+# Réécriture pour supprimer l'extension .php
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteCond %{REQUEST_FILENAME}\.html -f
-RewriteRule ^(.*)$ $1.html [L]
+RewriteCond %{REQUEST_FILENAME}\.php -f
+RewriteRule ^(.*)$ $1.php [L]
 
 # Empêcher l'accès direct aux répertoires
 Options -Indexes
