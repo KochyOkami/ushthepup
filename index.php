@@ -26,17 +26,7 @@ if (!isset($_SESSION['start_time'])) {
 </head>
 
 <body>
-  <header>
-    <div class="logo"><img src="img/logo.png" style="width:50px;"></div>
-    <nav>
-      <ul>
-        <li><a href="click.php?redirect=accueil&from=index">Accueil</a></li>
-        <li><a href="click.php?redirect=faq&from=index">À propos</a></li>
-        <li><a href="click.php?redirect=newsletter&from=index">Newsletter</a></li>
-        <li><a href="click.php?redirect=contact&from=index">Contact</a></li>
-      </ul>
-    </nav>
-  </header>
+  <?php include("includes/header.php"); ?>
   <section class="hero">
 
     <div class="hero-text">

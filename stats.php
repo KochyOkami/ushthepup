@@ -49,10 +49,51 @@ $db->close();
             display: flex;
             justify-content: space-around;
         }
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #121212;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .card-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #000;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            width: 250px;
+            padding: 20px;
+            margin: 10px;
+            text-align: center;
+        }
+
+        .card h2 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+            color: #4B0082;
+        }
+
+        .card p {
+            margin: 0;
+            font-size: 1.2em;
+        }
     </style>
 </head>
 
 <body>
+    <?php include("includes/header.php"); ?>
     <h1 style="text-align:center;">Statistiques de Visite</h1>
     <div class="center">
         <div class="graph">
@@ -63,31 +104,33 @@ $db->close();
         </div>
     </div>
 
-    <?php
-    include("includes/db.php");
+    <div class="card-container">
+        <?php
+        include("includes/db.php");
 
-    $sql = "SELECT action, COUNT(DISTINCT session_id) AS sessions_count
-        FROM visiteurs
-        GROUP BY action";
+        $sql = "SELECT action, COUNT(DISTINCT session_id) AS sessions_count
+                FROM visiteurs
+                GROUP BY action";
+        $result = $db->query($sql);
 
-    $result = $db->query($sql);
-
-    if ($result->num_rows > 0) {
-        while ($row = $result->fetch_assoc()) {
+        if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
                 // Remplacer "page_visit_" par une chaîne vide si elle existe dans l'action
                 $cleaned_action = str_replace("page_visit_", "", $row["action"]);
 
                 // Afficher l'action nettoyée et le nombre de sessions
-                echo "Action: " . $cleaned_action . ": " . $row["sessions_count"] . "<br>";
+                echo "<div class='card'>";
+                echo "<h2>" . ucfirst(htmlspecialchars($cleaned_action)) . "</h2>";
+                echo "<p>Nombre: " . htmlspecialchars($row["sessions_count"]) . "</p>";
+                echo "</div>";
             }
+        } else {
+            echo "<p>Aucun résultat trouvé</p>";
         }
-    } else {
-        echo "Aucun résultat trouvé";
-    }
-    $db->close();
-    ?>
 
+        $db->close();
+        ?>
+    </div>
     <script>
         // Récupérer les données des visites depuis PHP (à remplacer par votre propre méthode)
         let visitData = <?php echo json_encode($visitData); ?>;
@@ -99,7 +142,6 @@ $db->close();
             labels.push(entry.date);
             data.push(entry.visitor);
         });
-
         // Créer le graphique
         var ctx = document.getElementById('visitsChart').getContext('2d');
         var visitsChart = new Chart(ctx, {
@@ -109,28 +151,69 @@ $db->close();
                 datasets: [{
                     label: 'Nombre de Visites',
                     data: data,
-                    borderColor: 'blue',
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
                     borderWidth: 1,
-                    fill: false
+                    fill: false,
                 }]
             },
             options: {
                 scales: {
-                    yAxes: [{
+                    y: {
                         ticks: {
-                            beginAtZero: true
+                            beginAtZero: true,
+                            color: 'white' // Couleur des graduations de l'axe y
+                        },
+                        title: {
+                            display: true,
+                            text: 'Nombre de Visites',
+                            color: 'white' // Couleur du titre de l'axe y
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)' // Couleur de la grille de l'axe y
                         }
-                    }]
+                    },
+                    x: {
+                        ticks: {
+                            color: 'white' // Couleur des graduations de l'axe x
+                        },
+                        title: {
+                            display: true,
+                            text: 'Date',
+                            color: 'white' // Couleur du titre de l'axe x
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)' // Couleur de la grille de l'axe x
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Couleur de la légende
+                        }
+                    }
                 }
             }
         });
 
         // Récupérer les données PHP en JSON
         const avgDurations = <?php echo json_encode($avgDurations); ?>;
-
+        var unite = 's'
         // Préparer les données pour le graphique
         const labels2 = avgDurations.map(data => data.date);
-        const durations = avgDurations.map(data => data.avg_duration / 1000);
+        const durations = avgDurations.map(data => {
+            const duration = data.avg_duration;
+            if (duration >= 120) {
+                // Convertir en minutes si la durée est supérieure ou égale à 120 secondes
+                const minutes = Math.floor(duration / 60);
+                unite = 'min';
+                return minutes;
+            } else {
+                // Sinon, laisser la durée en secondes
+                return duration;
+            }
+        });
 
         // Configuration du graphique
         const ctx2 = document.getElementById('avgDurationChart').getContext('2d');
@@ -139,7 +222,7 @@ $db->close();
             data: {
                 labels: labels2,
                 datasets: [{
-                    label: 'Durée Moyenne (secondes)',
+                    label: 'Durée Moyenne en ' + unite,
                     data: durations,
                     backgroundColor: 'rgba(75, 192, 192, 0.2)',
                     borderColor: 'rgba(75, 192, 192, 1)',
@@ -152,13 +235,34 @@ $db->close();
                         beginAtZero: true,
                         title: {
                             display: true,
-                            text: 'Durée Moyenne (secondes)'
+                            text: 'Durée Moyenne en ' + unite,
+                            color: 'white' // Couleur du titre de l'axe y
+                        },
+                        ticks: {
+                            color: 'white' // Couleur des graduations de l'axe y
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)' // Couleur de la grille de l'axe y
                         }
                     },
                     x: {
                         title: {
                             display: true,
-                            text: 'Date'
+                            text: 'Date',
+                            color: 'white' // Couleur du titre de l'axe y
+                        },
+                        ticks: {
+                            color: 'white' // Couleur des graduations de l'axe y
+                        },
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.2)' // Couleur de la grille de l'axe y
+                        }
+                    }
+                },
+                plugins: {
+                    legend: {
+                        labels: {
+                            color: 'white' // Couleur de la légende
                         }
                     }
                 }

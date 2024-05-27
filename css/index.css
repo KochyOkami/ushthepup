@@ -6,36 +6,6 @@ body {
     padding: 0;
 }
 
-header {
-    background-color: #4B0082;
-    /* Violet foncé */
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 20px;
-}
-
-header .logo {
-    font-size: 1.5em;
-}
-
-header nav ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-header nav ul li {
-    margin-left: 20px;
-}
-
-header nav ul li a {
-    color: #ffffff;
-    text-decoration: none;
-    font-weight: bold;
-}
-
 .hero {
     background: url('background.jpg') no-repeat center center/cover;
     text-align: center;
