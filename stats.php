@@ -4,6 +4,8 @@ if (!isset($_GET['pswd']) || $_GET['pswd'] != "ushthepup") {
     die("Accès refusé");
 }
 include("includes/db.php");
+include("includes/functions.php");
+updateMissingGeoInfo();
 
 $sql = "SELECT DATE(FROM_UNIXTIME(time_start)) AS date, COUNT(DISTINCT session_id) AS visitor FROM visiteurs GROUP BY DATE(FROM_UNIXTIME(time_start));";
 $result = $db->query($sql);
@@ -89,6 +91,22 @@ $db->close();
             margin: 0;
             font-size: 1.2em;
         }
+
+        .country-flag {
+            width: 30px;
+            height: auto;
+            vertical-align: middle;
+            margin-right: 10px;
+        }
+        .country-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+        }
     </style>
 </head>
 
@@ -131,6 +149,34 @@ $db->close();
         $db->close();
         ?>
     </div>
+
+    <h1>Statistiques des Visites par Pays</h1>
+    <div class="country-list">
+        <?php
+        // Inclure la connexion à la base de données
+        include("includes/db.php");
+
+        // Requête pour récupérer tous les pays distincts de la table ip_locations
+        $sql = "SELECT DISTINCT country  FROM ip_locations ORDER BY country";
+        $result = $db->query($sql);
+
+        if ($result->num_rows > 0) {
+            while ($row = $result->fetch_assoc()) {
+                $country = $row['country'];
+                echo "<div class='country-item'>";
+                echo "<img class='country-flag' src='https://flagsapi.com/{$country}/flat/64.png' alt='{$country}'>";
+                echo "<span>{$country}</span>";
+                echo "</div>";
+            }
+        } else {
+            echo "<p>Aucun pays trouvé dans la base de données.</p>";
+        }
+
+        // Fermer la connexion à la base de données
+        $db->close();
+        ?>
+    </div>
+
     <script>
         // Récupérer les données des visites depuis PHP (à remplacer par votre propre méthode)
         let visitData = <?php echo json_encode($visitData); ?>;

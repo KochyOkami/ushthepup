@@ -27,7 +27,7 @@ function updateDuration($page)
         $stmt->bind_param("ii", $duration, $id);
         $stmt->execute();
         $stmt->close();
-    }else {
+    } else {
         recordPageVisit($page);
     }
 
@@ -72,5 +72,75 @@ function addEmailNewsLetter($email)
     }
 
     $db->close();
+}
+// Fonction pour obtenir les informations de localisation à partir de l'adresse IP
+function getGeoInfo($ip)
+{
+    $apiKey = "19236d529bbd2e"; // Remplacez par votre clé API ipinfo.io
+    $url = "https://ipinfo.io/{$ip}/json?token={$apiKey}";
 
+    $curl = curl_init();
+    curl_setopt($curl, CURLOPT_URL, $url);
+    curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+    $response = curl_exec($curl);
+    curl_close($curl);
+
+    return json_decode($response, true);
+}
+
+// Fonction pour enregistrer les informations de localisation dans la base de données
+function saveGeoInfo($ip, $geoInfo)
+{
+    include("db.php");
+    $stmt = $db->prepare("INSERT INTO ip_locations (ip_address, country, city, region, latitude, longitude) VALUES (?, ?, ?, ?, ?, ?)");
+
+    $latitude = isset($geoInfo['loc']) ? explode(',', $geoInfo['loc'])[0] : NULL;
+    $longitude = isset($geoInfo['loc']) ? explode(',', $geoInfo['loc'])[1] : NULL;
+    var_dump($geoInfo);
+    // Utilisez des variables temporaires pour passer les valeurs à bind_param()
+    $ip_address = $ip;
+    $country = $geoInfo['country'] ?? NULL;
+    $city = $geoInfo['city'] ?? NULL;
+    $region = $geoInfo['region'] ?? NULL;
+
+    $stmt->bind_param(
+        "ssssdd",
+        $ip_address,
+        $country,
+        $city,
+        $region,
+        $latitude,
+        $longitude
+    );
+
+    $stmt->execute();
+    $stmt->close();
+}
+
+
+// Fonction pour récupérer toutes les IP non présentes dans ip_locations et les ajouter
+function updateMissingGeoInfo()
+{
+    include("db.php");
+    // Requête pour récupérer les adresses IP distinctes de la table visiteurs qui ne sont pas dans ip_locations
+    $sql = "SELECT DISTINCT v.ip_address
+            FROM visiteurs v
+            LEFT JOIN ip_locations l ON v.ip_address = l.ip_address
+            WHERE l.ip_address IS NULL";
+    $result = $db->query($sql);
+
+    if ($result->num_rows > 0) {
+        while ($row = $result->fetch_assoc()) {
+            $ip_address = $row['ip_address'];
+            if ($ip_address == "127.0.0.1") {
+                continue; // Skip local IP address
+            }
+            $geoInfo = getGeoInfo($ip_address);
+            if ($geoInfo) {
+                saveGeoInfo($ip_address, $geoInfo);
+            }
+        }
+    } else {
+        echo "Aucune nouvelle adresse IP trouvée.";
+    }
 }
